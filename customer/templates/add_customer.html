@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <h2>Add New Customer</h2>
+        <form method="POST" action="{% url 'add_new_customer' %}">
+            {% csrf_token %}
+
+            ID: <input type="number" name="html_id" value="{{update_cust.id}}" readonly><br><br>
+            First Name: <input type="text" name="html_fname" value="{{update_cust.first_name}}" required><br><br>
+            Last Name: <input type="text" name="html_lname" value="{{update_cust.last_name}}" required><br><br>
+            Account ID: <input type="text" name="html_accID" value="{{update_cust.account_id}}" required><br><br>
+            Registration Date: <input type="date" name="html_date" value="{{update_cust.registration_date|date:'Y-m-d'}}" required><br><br>
+
+            
+
+            <lable>Braches</lable>
+            <select name="html_branches">
+                {% for choices in all_branches%}
+                <option value="{{choices.1}}">{{choices.0}}</option>
+                {% endfor%}
+            </select><br><br>
+
+            <lable>Gender</lable>
+            <input type="radio" name="html_gender" value="M"> Male
+            <input type="radio" name="html_gender" value="F">Female
+
+            <br><br>
+            {% if update_cust.id %}
+                <button type="submit">Update</button>
+            {% else %}    
+                <button type="submit">Add</button>
+            {% endif %}    
+
+        </form>  
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <table border="">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Account id</th>
+            <th>Registrated on</th>
+            <th>Is Deleted</th>
+            <th>Actions</th>
+
+            {% for customer in del_customers%}
+            <tr>
+            <td>{{customer.first_name}}</td>
+            <td>{{customer.last_name}}</td>
+            <td>{{customer.account_id}}</td>
+            <td>{{customer.registration_date}}</td>
+            <td>{{customer.is_deleted}}</td>
+            <td>
+                <form method="POST" action="{% url 'delete_customer' customer.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="html_hard_delete" value="hard_delete">
+                    <button type="submit">Hard Delete</button>
+                </form>
+                <a href="{% url 'restore_customers' customer.id %}"><button>Restore</button></a>
+            </td>
+            </tr>
+            {% endfor %}
+        </table><br><br>
+
+        <a href="{% url 'home' %}"><button>Go to Homepage</button></a>
+    </body>
+</html>
